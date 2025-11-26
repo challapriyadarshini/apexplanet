@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advanced Styling & JavaScript</title>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #eef7ff;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px;
+      background: #1a8cff;
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /*---------------------- IMAGE CAROUSEL ----------------------*/
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 15px;
+      margin: 30px 0;
+    }
+
+    .carousel img {
+      width: 100%;
+      display: none;
+      border-radius: 15px;
+    }
+
+    .carousel img.active {
+      display: block;
+      animation: fade 1s;
+    }
+
+    @keyframes fade {
+      from { opacity: 0.4; }
+      to { opacity: 1; }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #1a8cff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #006acc;
+    }
+    /* ---------- QUIZ STYLING ---------- */
+
+.quiz-container {
+  background: white;
+  padding: 25px;
+  margin-top: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.optBtn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.optBtn:hover {
+  background: #0056cc;
+}
+
+#result {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+#nextBtn {
+  background: #28a745;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: none;
+}
+
+#nextBtn:hover {
+  background: #1e7e34;
+}
+
+
+    /*---------------------- API CARD ----------------------*/
+    .api-box {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    #joke {
+      font-size: 18px;
+      margin: 20px 0;
+      color: #444;
+    }
+
+    /*---------------------- RESPONSIVE ----------------------*/
+    @media (max-width: 600px) {
+      header {
+        font-size: 18px;
+        padding: 20px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Advanced Styling & JavaScript Project</h1>
+</header>
+
+<div class="container">
+
+  <!-- ******** IMAGE CAROUSEL ******** -->
+  <h2>📸 Image Carousel (JavaScript)</h2>
+
+  <div class="carousel">
+    <img src="https://picsum.photos/800/400?1" class="active">
+    <img src="https://picsum.photos/800/400?2">
+    <img src="https://picsum.photos/800/400?3">
+  </div>
+
+  <div class="buttons">
+    <button onclick="prevImage()">Previous</button>
+    <button onclick="nextImage()">Next</button>
+  </div>
+  <div class="quiz-container">
+  <h2>📝 JavaScript Quiz</h2>
+
+  <div id="quizBox">
+    <h3 id="question"></h3>
+
+    <div class="options">
+      <button class="optBtn" onclick="checkAnswer(0)"></button>
+      <button class="optBtn" onclick="checkAnswer(1)"></button>
+      <button class="optBtn" onclick="checkAnswer(2)"></button>
+      <button class="optBtn" onclick="checkAnswer(3)"></button>
+    </div>
+
+    <p id="result"></p>
+    <button id="nextBtn" onclick="nextQuestion()">Next Question</button>
+  </div>
+</div>
+
+  <!-- ******** API DATA ******** -->
+  <div class="api-box">
+    <h2>🌐 Fetch Data From API</h2>
+    <p id="joke">Click the button to load a joke!</p>
+    <button onclick="getJoke()">Get Random Joke</button>
+  </div>
+  
+
+
+</div>
+
+<script>
+  /* ---------------- IMAGE CAROUSEL ---------------- */
+  let index = 0;
+  const images = document.querySelectorAll('.carousel img');
+
+  function showImage(i) {
+    images.forEach(img => img.classList.remove('active'));
+    images[i].classList.add('active');
+  }
+
+  function nextImage() {
+    index = (index + 1) % images.length;
+    showImage(index);
+  }
+
+  function prevImage() {
+    index = (index - 1 + images.length) % images.length;
+    showImage(index);
+  }
+
+  /* Auto-rotation every 3 sec */
+  setInterval(nextImage, 3000);
+  /* ---------- QUIZ QUESTIONS ---------- */
+const quiz = [
+  {
+    question: "Which HTML tag is used to link JavaScript?",
+    options: ["<javascript>", "<js>", "<script>", "<link>"],
+    answer: 2
+  },
+  {
+    question: "Which method prints output in console?",
+    options: ["print()", "console.log()", "display()", "write()"],
+    answer: 1
+  },
+  {
+    question: "Which keyword is used to declare a variable?",
+    options: ["var", "define", "letvar", "new"],
+    answer: 0
+  },
+  {
+    question: "What does CSS stand for?",
+    options: ["Creative Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets", "Computer Style Sheets"],
+    answer: 1
+  }
+];
+
+let current = 0;
+let score = 0;
+
+/* Load question */
+function loadQuiz() {
+  document.getElementById("result").innerText = "";
+  document.getElementById("nextBtn").style.display = "none";
+
+  const q = quiz[current];
+  document.getElementById("question").innerText = q.question;
+
+  const buttons = document.querySelectorAll(".optBtn");
+  buttons.forEach((btn, i) => {
+    btn.innerText = q.options[i];
+    btn.disabled = false;
+    btn.style.background = "#007bff";
+  });
+}
+
+loadQuiz();
+
+/* Check answer */
+function checkAnswer(i) {
+  const q = quiz[current];
+  const buttons = document.querySelectorAll(".optBtn");
+
+  if (i === q.answer) {
+    score++;
+    document.getElementById("result").innerText = "Correct 🎉";
+    buttons[i].style.background = "#28a745";
+  } else {
+    document.getElementById("result").innerText = "Wrong ❌";
+    buttons[i].style.background = "#dc3545";
+  }
+
+  buttons.forEach(btn => btn.disabled = true);
+  document.getElementById("nextBtn").style.display = "block";
+}
+
+/* Load next question */
+function nextQuestion() {
+  current++;
+
+  if (current >= quiz.length) {
+    document.getElementById("quizBox").innerHTML =
+      `<h2>Your Score: ${score}/${quiz.length}</h2>
+       <p>Great job! 🎉</p>`;
+    return;
+  }
+
+  loadQuiz();
+}
+
+
+
+  /* ---------------- API FETCH (JOKE API) ---------------- */
+  async function getJoke() {
+    const response = await fetch("https://v2.jokeapi.dev/joke/Any?type=single");
+    const data = await response.json();
+    document.getElementById("joke").innerText = data.joke;
+  }
+</script>
+
+</body>
+</html>
